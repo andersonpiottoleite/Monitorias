@@ -10,5 +10,7 @@ public class TesteAluno {
         List<Aluno> s = new ArrayList<>();
         s.add(new Aluno("Pedro"));
         s.add(new Aluno("Vitor"));
+
+        s.forEach(System.out::println);
     }
 }

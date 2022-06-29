@@ -1,6 +1,17 @@
 package generics;
 
 public class Carro implements Comparable<Carro>{
+
+    public Carro(String nome, int velocidadeMaxima) {
+        this.nome = nome;
+        this.velocidadeMaxima = velocidadeMaxima;
+    }
+
+    public Carro() {
+    }
+
+
+
     private String nome;
     private int velocidadeMaxima;
 
@@ -30,5 +41,9 @@ public class Carro implements Comparable<Carro>{
             return  -1;
         }
         return 0;
+    }
+
+    public void outroMetodo(String s1, String s2) throws RuntimeException{
+
     }
 }

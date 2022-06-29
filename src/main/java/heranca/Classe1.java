@@ -1,7 +1,7 @@
 package heranca;
 
-import interfaces.Interface1;
-import interfaces.Interface2;
+import heranca.interfaces.Interface1;
+import heranca.interfaces.Interface2;
 
 // não posso ter herança multipla
 // posso implementar mais de uma interface
