@@ -6,6 +6,7 @@ import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
+import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toMap;
 
@@ -26,28 +27,28 @@ public class TestStreams {
         valores.add(4);
         valores.add(5);
 
-        /*
-        forEachImprimindoComLamba(palavras);
-        forEachImprimindoComMethosReference(palavras);
-        filtrandoComFilter(palavras);
-        count(palavras);
-        max(palavras);
-        pegaQualquerUm(palavras);
-        pegaPrimeiro(palavras);
-        mapeiaParaListDeInt(palavras);
-        mapeiaParaMapDeInt(palavras);
-        mapeiaParaStreamDouble(valores);
-        selecionaOsTresUltimosValoresMasPulaOPrimeiro(valores);
-        media(valores);
-        soma(valores);
-        sumario(valores);
-        agrupando(valores);
-        reducingMax(valores);
-        reducingMin(valores);
-        flatMapEmLista();
+
+        //forEachImprimindoComLamba(palavras);
+        //forEachImprimindoComMethosReference(palavras);
+        //filtrandoComFilter(palavras);
+        //count(palavras);
+        //max(palavras);
+        //pegaQualquerUm(palavras);
+        //pegaPrimeiro(palavras);
+        //mapeiaParaListDeInt(palavras);
+        //mapeiaParaMapDeInt(palavras);
+        //mapeiaParaStreamDouble(valores);
+        //selecionaOsTresUltimosValoresMasPulaOPrimeiro(valores);
+        //media(valores);
+        //soma(valores);
+        //sumario(valores);
+        //agrupando(valores);
+        //reducingMax(valores);
+        //reducingMin(valores);
+        //flatMapEmLista();
         flatMapEmHashMapDeIntegerAndListString();
-        flatMapEmHashMapDeIntegerAndListDouble();
-         */
+        //flatMapEmHashMapDeIntegerAndListDouble();
+
     }
 
     private static void flatMapEmHashMapDeIntegerAndListDouble() {
@@ -91,14 +92,14 @@ public class TestStreams {
 
         System.out.println(matrizPalavras);
 
-        var mapValorChave = matrizPalavras.entrySet()
+        var mapChaveValor1 = matrizPalavras.entrySet()
                 .stream()
                 .flatMap(entry -> entry.getValue()
                         .stream()
-                        .map(s -> Map.entry(s, entry.getKey())))
-                .collect(toMap(Map.Entry::getKey, Map.Entry::getValue));
+                        .map(s -> Map.entry(entry.getKey(), s)))
+                .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (a,b) -> a+b));
 
-        System.out.println(mapValorChave);
+        System.out.println(mapChaveValor1);
 
         AtomicInteger counter = new AtomicInteger(0);
 
@@ -114,18 +115,40 @@ public class TestStreams {
     }
 
     private static void flatMapEmLista() {
+
         List<List<String>> matrizPalavras = new ArrayList<>();
 
         matrizPalavras.add(Arrays.asList("palavra1","palavra2"));
-        matrizPalavras.add(Arrays.asList("palavra3","palavra4"));
-        matrizPalavras.add(Arrays.asList("palavra5","palavra6"));
+        matrizPalavras.add(Arrays.asList("palavra3","palavra4","teste"));
+        matrizPalavras.add(Arrays.asList("palavra5","palavra6","teste 2", "teste 3"));
+
         System.out.println(matrizPalavras);
 
-        List<String> listDerivadaDeMap = matrizPalavras.stream().map(m -> m.get(0) + m.get(1)).collect(Collectors.toList());
+        List<String> listDerivadaDeMap = matrizPalavras.stream()
+                .map(m -> m.get(0)+ ", " + m.get(1)).collect(Collectors.toList());
+        listDerivadaDeMap.forEach(c -> System.out.println(c));
+        System.out.println(listDerivadaDeMap);
         listDerivadaDeMap.forEach(l -> System.out.println("A partir de map - " + l));
 
         List<String> listDerivadaDeFlatMap = matrizPalavras.stream().flatMap(Collection::stream).collect(Collectors.toList());
+        System.out.println(listDerivadaDeFlatMap);
         listDerivadaDeFlatMap.forEach(l -> System.out.println("A partir de flatMap - " + l));
+
+        // tridimensional
+        List<List<List<String>>> triMatrizPalavras = new ArrayList<>();
+
+        triMatrizPalavras.add(Arrays.asList(Arrays.asList("palavra1","palavra2"), Arrays.asList("palavra3","palavra5")));
+        triMatrizPalavras.add(Arrays.asList(Arrays.asList("palavra6","palavra7"), Arrays.asList("palavra8","palavra9")));
+        triMatrizPalavras.add(Arrays.asList(Arrays.asList("palavra10","palavra11"), Arrays.asList("palavra12","palavra13")));
+        System.out.println(triMatrizPalavras);
+
+        var tridimensional = triMatrizPalavras
+                .stream()
+                .flatMap(Collection::stream)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
+
+        System.out.println(tridimensional);
     }
 
     private static void reducingMin(List<Integer> valores) {
