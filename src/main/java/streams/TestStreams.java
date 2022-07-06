@@ -26,7 +26,8 @@ public class TestStreams {
         valores.add(4);
         valores.add(5);
 
-        /*forEachImprimindoComLamba(palavras);
+        /*
+        forEachImprimindoComLamba(palavras);
         forEachImprimindoComMethosReference(palavras);
         filtrandoComFilter(palavras);
         count(palavras);
